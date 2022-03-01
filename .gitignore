@@ -1,3 +1,5 @@
 /Chen_2019_IOP_Conf._Ser.__Mater._Sci._Eng._677_032057.pdf
 .idea
+__pycache__
+.DS_Store
 alchemist/config.py
