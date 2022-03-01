@@ -3,3 +3,4 @@ uvicorn
 pytorch
 torchvision
 albumentations
+python-multipart
