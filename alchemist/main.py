@@ -2,7 +2,8 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from typing import List
+from typing import List, Optional
+import os, aiofiles
 
 # Import Utils Setting
 from alchemist.config import HOST, PORT
@@ -26,14 +27,15 @@ async def root():
 
 
 @app.post("/ai", status_code=status.HTTP_200_OK)
-async def upload_files(files: List[UploadFile] = File(...)):
-    files_path = [file.filename for file in files]
-    files_check(files_path)
-    if human_detection(files_path):
-        if posture_classity(files_path) is False:
-            HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User is Sleep.")
+async def upload_files(files: Optional[List[UploadFile]] = File([])):
+    if files_check(files):
+        if human_detection(files):
+            if posture_classity(files) is False:
+                HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User is Sleep.")
+        else:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Human Not Found.")
     else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Human Not Found.")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="file is none")
 
 
 if __name__ == '__main__':
