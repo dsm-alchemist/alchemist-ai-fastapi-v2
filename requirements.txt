@@ -1,2 +1,5 @@
 fastapi
 uvicorn
+pytorch
+torchvision
+albumentations
