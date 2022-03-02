@@ -32,6 +32,8 @@ async def upload_files(files: Optional[List[UploadFile]] = File([])):
         if human_detection(files):
             if posture_classity(files) is False:
                 HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User is Sleep.")
+            else:
+                raise HTTPException(status_code=status.HTTP_200_OK, detail="Timer Run")
         else:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Human Not Found.")
     else:

@@ -1,8 +1,10 @@
 # Import Library
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, File, UploadFile
 from typing import List
 
 
-def files_check(files: List[str]):
+def files_check(files: List[UploadFile] = File(...)):
     if files is None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="file is none")
+        return False
+    else:
+        return True
