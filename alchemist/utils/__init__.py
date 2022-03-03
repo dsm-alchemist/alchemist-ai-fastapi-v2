@@ -1,5 +1,5 @@
 # Import Library
-from fastapi import HTTPException, status, File, UploadFile
+from fastapi import File, UploadFile
 from typing import List
 
 
